@@ -10,7 +10,11 @@ ENV V2RAY_LOG_DIR /var/log/v2ray
 ENV V2RAY_CONFIG_DIR /etc/v2ray/
 ENV V2RAY_DOWNLOAD_URL https://github.com/v2ray/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-64.zip
 
-RUN apt-get install bash tzdata curl -y \
+RUN apt-get update && \
+    apt-get install -y \
+    bash \
+    tzdata \
+    curl \
     && mkdir -p \ 
         ${V2RAY_LOG_DIR} \
         ${V2RAY_CONFIG_DIR} \
