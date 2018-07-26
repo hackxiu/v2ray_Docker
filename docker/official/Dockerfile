@@ -1,6 +1,6 @@
-FROM debian:stretch
+FROM debian:latest
 
-LABEL maintainer "Darian Raymond <admin@v2ray.com>"
+LABEL maintainer="Darian Raymond <admin@v2ray.com>"
 
 ARG TZ="Asia/Shanghai"
 
