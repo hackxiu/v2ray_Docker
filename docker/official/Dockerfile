@@ -2,7 +2,7 @@ FROM debian:latest
 
 LABEL maintainer "Darian Raymond <admin@v2ray.com>"
 
-WORKDIR /home
+####WORKDIR /home
 
 ARG TZ="Asia/Shanghai"
 
