@@ -1,4 +1,4 @@
-debian:latest
+FROM debian:latest
 
 LABEL maintainer "Darian Raymond <admin@v2ray.com>"
 
