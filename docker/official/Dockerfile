@@ -12,10 +12,7 @@ ENV V2RAY_DOWNLOAD_URL https://github.com/v2ray/v2ray-core/releases/download/${V
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y --no-install-recommends install \
-    wget \
-    openssl \
-    curl sed net-tools iptables \
+    apt-get install -y --no-install-recommends install wget curl apt-utils tar unzip openssl curl sed net-tools iptables \
     && mkdir -p \ 
         ${V2RAY_LOG_DIR} \
         ${V2RAY_CONFIG_DIR} \
