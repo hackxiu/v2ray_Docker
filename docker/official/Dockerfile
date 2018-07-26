@@ -12,7 +12,7 @@ ENV V2RAY_DOWNLOAD_URL https://github.com/v2ray/v2ray-core/releases/download/${V
 
 COPY config.json /etc/v2ray/config.json
 
-RUN apt-get update && apt-get install -y wget curl apt-utils tar unzip daemon openssl curl sed net-tools vim \
+RUN apt-get update && apt-get install -y wget curl apt-utils tzdata tar unzip daemon openssl curl sed net-tools vim \
     && mkdir -p \
     ${V2RAY_LOG_DIR} \
     ${V2RAY_CONFIG_DIR} \
