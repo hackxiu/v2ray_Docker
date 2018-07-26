@@ -15,16 +15,18 @@ RUN apt-get update && apt-get install -y wget curl apt-utils tar unzip openssl c
     ${V2RAY_LOG_DIR} \
     ${V2RAY_CONFIG_DIR} \
     /tmp/v2ray \
+    /etc/v2ray/ \
+    /var/log/v2ray/ \
     && curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/v2ray.zip ${V2RAY_DOWNLOAD_URL} \
     && unzip /tmp/v2ray/v2ray.zip -d /tmp/v2ray/ \
-    && mv /tmp/v2ray/v2ray-${V2RAY_VERSION}-linux-64/v2ray /usr/bin \
-    && mv /tmp/v2ray/v2ray-${V2RAY_VERSION}-linux-64/vpoint_vmess_freedom.json /etc/v2ray/config.json \
+    && mv -f /tmp/v2ray/v2ray-${V2RAY_VERSION}-linux-64/v2ray /usr/bin \
+    && mv -f /tmp/v2ray/v2ray-${V2RAY_VERSION}-linux-64/vpoint_vmess_freedom.json /etc/v2ray/config.json \
     && chmod +x /usr/bin/v2ray \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
     && rm -rf /tmp/v2ray /var/cache/*
 
-ADD config.json /etc/v2ray/config.json
+COPY config.json /etc/v2ray/config.json
 ENV PATH /usr/bin/v2ray:$PATH
 
-CMD ["sudo v2ray", "-config=/etc/v2ray/config.json"]
+CMD ["v2ray", "-config=/etc/v2ray/config.json"]
