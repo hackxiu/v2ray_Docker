@@ -27,4 +27,4 @@ RUN apt-get update && apt-get install -y wget curl apt-utils tar unzip openssl c
 ADD config.json /etc/v2ray/config.json
 ENV PATH /usr/bin/v2ray:$PATH
 
-CMD ["v2ray", "-config=/etc/v2ray/config.json"]
+CMD ["sudo v2ray", "-config=/etc/v2ray/config.json"]
