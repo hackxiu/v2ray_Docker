@@ -24,11 +24,7 @@ RUN apt-get update && apt-get install -y wget curl apt-utils tar unzip openssl c
     && echo ${TZ} > /etc/timezone \
     && rm -rf /tmp/v2ray /var/cache/*
 
-ADD entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 COPY config.json /etc/v2ray/config.json
 ENV PATH /usr/bin/v2ray:$PATH
 
 CMD ["v2ray", "-config=/etc/v2ray/config.json"]
-
-ENTRYPOINT ["/entrypoint.sh"]
