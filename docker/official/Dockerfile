@@ -2,6 +2,8 @@ FROM debian:latest
 
 LABEL maintainer "Darian Raymond <admin@v2ray.com>"
 
+WORKDIR /home
+
 ARG TZ="Asia/Shanghai"
 
 ENV TZ ${TZ}
