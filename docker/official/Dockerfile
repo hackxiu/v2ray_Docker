@@ -16,7 +16,7 @@ ENV V2RAY_DOWNLOAD_URL https://github.com/v2ray/v2ray-core/releases/download/${V
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" /etc/apt/sources.list \
     echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" /etc/apt/sources.list \
-    echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" &gt;&gt;/etc/apt/sources.list \
+    echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" /etc/apt/sources.list \
     echo "deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y \
