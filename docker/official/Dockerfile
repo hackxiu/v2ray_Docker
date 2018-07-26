@@ -6,7 +6,7 @@ ARG TZ="Asia/Shanghai"
 
 ENV TZ ${TZ}
 
-RUN apt-get update &&DEBIAN_FRONTEND=noninteractive apt-get install -y wget curl apt-utils tzdata tar unzip daemon openssl curl sed net-tools vim \
+RUN apt-get update &&apt-get install -y wget curl apt-utils tzdata tar unzip daemon openssl curl sed net-tools vim \
     && mkdir -p \
     /tmp/v2ray \
     /var/log/v2ray/ \
