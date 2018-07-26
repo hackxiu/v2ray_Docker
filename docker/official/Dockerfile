@@ -10,8 +10,7 @@ ENV V2RAY_LOG_DIR /var/log/v2ray
 ENV V2RAY_CONFIG_DIR /etc/v2ray/
 ENV V2RAY_DOWNLOAD_URL https://github.com/v2ray/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-64.zip
 
-RUN DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y --no-install-recommends install wget curl apt-utils tar unzip openssl curl sed net-tools iptables \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget curl apt-utils tar unzip openssl curl sed net-tools iptables \
     && mkdir -p \ 
         ${V2RAY_LOG_DIR} \
         ${V2RAY_CONFIG_DIR} \
