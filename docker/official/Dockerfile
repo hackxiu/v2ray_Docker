@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y wget curl apt-utils tar unzip daemon op
     && chmod +x /etc/v2ray/config.json \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
-    && rm -rf /tmp/v2ray /var/cache/*
+    && rm -rf /tmp/v2ray/v2ray.zip /tmp/v2ray /var/cache/*
 
 ENV PATH /usr/bin/v2ray/v2ray:$PATH
 
