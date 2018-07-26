@@ -2,19 +2,33 @@ FROM debian:latest
 
 LABEL maintainer "Darian Raymond <admin@v2ray.com>"
 
-ADD https://storage.googleapis.com/v2ray-docker/v2ray /usr/bin/v2ray/
-ADD https://storage.googleapis.com/v2ray-docker/v2ctl /usr/bin/v2ray/
-ADD https://storage.googleapis.com/v2ray-docker/geoip.dat /usr/bin/v2ray/
-ADD https://storage.googleapis.com/v2ray-docker/geosite.dat /usr/bin/v2ray/
+ARG TZ="Asia/Shanghai"
 
-COPY config.json /etc/v2ray/config.json
+ENV TZ ${TZ}
+ENV V2RAY_VERSION v3.31.1
+ENV V2RAY_LOG_DIR /var/log/v2ray
+ENV V2RAY_CONFIG_DIR /etc/v2ray/
+ENV V2RAY_DOWNLOAD_URL https://github.com/v2ray/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-64.zip
 
-RUN set -ex && \
-    apk --no-cache add ca-certificates && \
-    mkdir /var/log/v2ray/ &&\
-    chmod +x /usr/bin/v2ray/v2ctl && \
-    chmod +x /usr/bin/v2ray/v2ray
+RUN apk upgrade --update \
+    && apk add \
+        bash \
+        tzdata \
+        curl \
+    && mkdir -p \ 
+        ${V2RAY_LOG_DIR} \
+        ${V2RAY_CONFIG_DIR} \
+        /tmp/v2ray \
+    && curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/v2ray.zip ${V2RAY_DOWNLOAD_URL} \
+    && unzip /tmp/v2ray/v2ray.zip -d /tmp/v2ray/ \
+    && mv /tmp/v2ray/v2ray-${V2RAY_VERSION}-linux-64/v2ray /usr/bin \
+    && mv /tmp/v2ray/v2ray-${V2RAY_VERSION}-linux-64/vpoint_vmess_freedom.json /etc/v2ray/config.json \
+    && chmod +x /usr/bin/v2ray \
+    && apk del curl \
+    && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && echo ${TZ} > /etc/timezone \
+    && rm -rf /tmp/v2ray /var/cache/apk/*
 
-ENV PATH /usr/bin/v2ray:$PATH
+ADD entrypoint.sh /entrypoint.sh
 
-CMD ["v2ray", "-config=/etc/v2ray/config.json"]
+ENTRYPOINT ["/entrypoint.sh"]
