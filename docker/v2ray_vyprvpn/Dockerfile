@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:16.04
 LABEL maintainer="Hackxiu <hackxiu@gmail.com>"
 
 ENV Tim=Asia/Shanghai
