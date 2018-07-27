@@ -1,5 +1,6 @@
 from debian:latest
 
+ENV Tim=Asia/Shanghai
 ENV CLIENT_ID "f3c9cb27-746f-4e41-acf2-820bd3002676"
 ENV CLIENT_ALTERID 100
 ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
@@ -20,6 +21,7 @@ RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core
 	&& rm -rf v2ray-v$VER-linux-64
 
 RUN mkdir /var/log/v2ray \
+        && echo ${Tim} > /etc/timezone \
 	&& mkdir /etc/v2ray \
 	&& chmod -R 777 /var/log/v2ray \
 	&& chmod -R 777 /etc/v2ray \
@@ -27,9 +29,7 @@ RUN mkdir /var/log/v2ray \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /var/cache/apt/*
 
-RUN rm -rf /etc/localtime
-ADD conf/localtime /etc/
-ADD conf/config.json /etc/v2ray/
+ADD config.json /etc/v2ray/
 ENV PATH /usr/local/bin:$PATH
 
 EXPOSE 8080
