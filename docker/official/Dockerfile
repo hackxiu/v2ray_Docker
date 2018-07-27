@@ -7,7 +7,7 @@ ENV CLIENT_ALTERID 100
 ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
 ENV VER=3.32
 
-ADD entrypoint.sh /etc/
+#ADD entrypoint.sh /etc/
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends wget sed net-tools unzip daemon tzdata vim
