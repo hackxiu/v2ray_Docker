@@ -1,25 +1,36 @@
-FROM debian:latest
+from debian:latest
 
-LABEL maintainer="Darian Raymond <admin@v2ray.com>"
+ENV CLIENT_ID "f3c9cb27-746f-4e41-acf2-820bd3002676"
+ENV CLIENT_ALTERID 100
+ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
+ENV VER=3.32
 
-ARG TZ="Asia/Shanghai"
+ADD entrypoint.sh /etc/
 
-ENV TZ ${TZ}
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends wget unzip php-fpm php-curl php-cli php-mcrypt php-mysql php-readline
 
-RUN apt-get update &&apt-get install -y wget curl apt-utils tzdata tar unzip daemon openssl curl sed net-tools vim \
-    && mkdir -p \
-    /tmp/v2ray \
-    /var/log/v2ray/ \
-    && curl -L -s https://raw.githubusercontent.com/v2ray/v2ray-core/master/release/install-release.sh | bash \
-    && mv /etc/v2ray/config.json /etc/v2ray/config.json.bak \
-    && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
-    && echo ${TZ} > /etc/timezone \
-    && rm -rf /tmp/v2ray /var/cache/*
+RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
+	&& unzip v2ray.zip \
+	&& mv ./v2ray-v$VER-linux-64/v2ray /usr/local/bin/ \
+	&& mv ./v2ray-v$VER-linux-64/v2ctl /usr/local/bin/ \
+	&& chmod 777 /usr/local/bin/v2ctl \
+	&& chmod 777 /usr/local/bin/v2ray \
+	&& rm -rf v2ray.zip \
+	&& rm -rf v2ray-v$VER-linux-64
 
-ONBUILD COPY config.json /etc/v2ray/config.json
+RUN mkdir /var/log/v2ray \
+	&& mkdir /etc/v2ray \
+	&& chmod -R 777 /var/log/v2ray \
+	&& chmod -R 777 /etc/v2ray \
+	&& chmod 777 /etc/entrypoint.sh \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf /var/cache/apt/*
 
-ONBUILD RUN chmod +x /etc/v2ray/config.json
+RUN rm -rf /etc/localtime
+ADD conf/localtime /etc/
+ADD conf/config.json /etc/v2ray/
+ENV PATH /usr/local/bin:$PATH
 
-ENV PATH /usr/bin/v2ray/v2ray:$PATH
-
-CMD ["v2ray", "-config=/etc/v2ray/config.json"]
+EXPOSE 8080
+ENTRYPOINT ["/etc/entrypoint.sh"]
