@@ -16,9 +16,9 @@ RUN apt-get update &&apt-get install -y wget curl apt-utils tzdata tar unzip dae
     && echo ${TZ} > /etc/timezone \
     && rm -rf /tmp/v2ray /var/cache/*
 
-COPY --from=builder config.json /etc/v2ray/config.json
+ONBUILD COPY config.json /etc/v2ray/config.json
 
-RUN chmod +x /etc/v2ray/config.json
+ONBUILD RUN chmod +x /etc/v2ray/config.json
 
 ENV PATH /usr/bin/v2ray/v2ray:$PATH
 
