@@ -1,7 +1,8 @@
-from debian:latest
+FROM debian:latest
+LABEL maintainer="Hackxiu <hackxiu@gmail.com>"
 
 ENV Tim=Asia/Shanghai
-ENV CLIENT_ID "f3c9cb27-746f-4e41-acf2-820bd3002676"
+ENV CLIENT_ID "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297"
 ENV CLIENT_ALTERID 100
 ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
 ENV VER=3.32
@@ -34,3 +35,4 @@ ENV PATH /usr/local/bin:$PATH
 
 EXPOSE 8080
 ENTRYPOINT ["/etc/entrypoint.sh"]
+CMD ["v2ray", "-config=/etc/v2ray/config.json"]
