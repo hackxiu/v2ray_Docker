@@ -3,6 +3,7 @@ LABEL maintainer="Hackxiu <hackxiu@gmail.com>"
 
 ENV Tim=Asia/Shanghai
 ENV CLIENT_ID "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297"
+ENV CLIENT_ALTERID 100
 ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
 ENV VER=3.32
 
@@ -31,7 +32,8 @@ ADD config.json /etc/v2ray/
 ENV PATH /usr/local/bin:$PATH
 
 RUN sed -i "s/CLIENT_ID/$CLIENT_ID/g" /etc/v2ray/config.json \
-    && sed -i "s/CLIENT_ALTERID/$CLIENT_ALTERID/g" /etc/v2ray/config.json
+    && sed -i "s/CLIENT_ALTERID/$CLIENT_ALTERID/g" /etc/v2ray/config.json \
+    && sed -i "s#CLIENT_WSPATH#$CLIENT_WSPATH#g" /etc/v2ray/config.json
 
 EXPOSE 8080
 #ENTRYPOINT ["/etc/entrypoint.sh"]
