@@ -30,9 +30,6 @@ RUN mkdir /var/log/v2ray \
 ADD config.json /etc/v2ray/
 ENV PATH /usr/local/bin:$PATH
 
-RUN sed -i "s/CLIENT_ID/$CLIENT_ID/g" /etc/v2ray/config.json \
-    && sed -i "s#CLIENT_WSPATH#$CLIENT_WSPATH#g" /etc/v2ray/config.json
-
 EXPOSE 8080
 
 CMD ["v2ray", "-config=/etc/v2ray/config.json"]
