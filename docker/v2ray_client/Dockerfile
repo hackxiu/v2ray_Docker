@@ -14,8 +14,12 @@ RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core
 	&& unzip v2ray.zip \
 	&& mv ./v2ray-v$VER-linux-64/v2ray /usr/local/bin/ \
 	&& mv ./v2ray-v$VER-linux-64/v2ctl /usr/local/bin/ \
+        && mv ./v2ray-v$VER-linux-64/geosite.dat /usr/local/bin/ \
+        && mv ./v2ray-v$VER-linux-64/geoip.dat /usr/local/bin/ \
 	&& chmod 777 /usr/local/bin/v2ctl \
 	&& chmod 777 /usr/local/bin/v2ray \
+        && chmod 777 /usr/local/bin/geosite.dat \
+        && chmod 777 /usr/local/bin/geoip.dat \
 	&& rm -rf v2ray.zip \
 	&& rm -rf v2ray-v$VER-linux-64
 
