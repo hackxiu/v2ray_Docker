@@ -7,9 +7,9 @@ ENV CLIENT_ALTERID 100
 ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
 ENV VER=3.32
 
-RUN set -ex \
-        && apk --update \
-	&& apk --no-cache add wget sed unzip daemon tzdata vim
+RUN apk --no-cache add wget tzdata sed unzip daemon tzdata vim
+RUN apk update
+RUN apk upgrade
 
 RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
 	&& unzip v2ray.zip \
@@ -30,7 +30,7 @@ RUN mkdir /var/log/v2ray \
 	&& chmod -R 777 /var/log/v2ray \
 	&& chmod -R 777 /etc/v2ray \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& rm -rf /var/cache/apt/*
+	&& rm -rf /var/cache/apk/*
 
 ADD config.json /etc/v2ray/
 ENV PATH /usr/local/bin:$PATH
