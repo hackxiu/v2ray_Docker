@@ -10,36 +10,28 @@ ENV VER=3.32
 RUN apk add --no-cache ca-certificates && update-ca-certificates
 RUN apk update
 RUN apk --no-cache upgrade
-RUN apk add --no-cache \
-    wget \
-    bash \
-    tzdata \
-    unzip \
-    daemon \
-    tzdata \
-    vim \
-    sed \
+RUN apk add --no-cache wget bash tzdata unzip daemon tzdata vim sed
 
 RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
-	&& unzip v2ray.zip \
-	&& mv ./v2ray-v$VER-linux-64/v2ray /usr/local/bin/ \
-	&& mv ./v2ray-v$VER-linux-64/v2ctl /usr/local/bin/ \
-        && mv ./v2ray-v$VER-linux-64/geosite.dat /usr/local/bin/ \
-        && mv ./v2ray-v$VER-linux-64/geoip.dat /usr/local/bin/ \
-	&& chmod 777 /usr/local/bin/v2ctl \
-	&& chmod 777 /usr/local/bin/v2ray \
-        && chmod 777 /usr/local/bin/geosite.dat \
-        && chmod 777 /usr/local/bin/geoip.dat \
-	&& rm -rf v2ray.zip \
-	&& rm -rf v2ray-v$VER-linux-64
+    && unzip v2ray.zip \
+    && mv ./v2ray-v$VER-linux-64/v2ray /usr/local/bin/ \
+    && mv ./v2ray-v$VER-linux-64/v2ctl /usr/local/bin/ \
+    && mv ./v2ray-v$VER-linux-64/geosite.dat /usr/local/bin/ \
+    && mv ./v2ray-v$VER-linux-64/geoip.dat /usr/local/bin/ \
+    && chmod 777 /usr/local/bin/v2ctl \
+    && chmod 777 /usr/local/bin/v2ray \
+    && chmod 777 /usr/local/bin/geosite.dat \
+    && chmod 777 /usr/local/bin/geoip.dat \
+    && rm -rf v2ray.zip \
+    && rm -rf v2ray-v$VER-linux-64
 
 RUN mkdir /var/log/v2ray \
-        && echo ${Tim} > /etc/timezone \
-	&& mkdir /etc/v2ray \
-	&& chmod -R 777 /var/log/v2ray \
-	&& chmod -R 777 /etc/v2ray \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& rm -rf /var/cache/apk/*
+    && echo ${Tim} > /etc/timezone \
+    && mkdir /etc/v2ray \
+    && chmod -R 777 /var/log/v2ray \
+    && chmod -R 777 /etc/v2ray \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/cache/apk/*
 
 ADD config.json /etc/v2ray/
 ENV PATH /usr/local/bin:$PATH
