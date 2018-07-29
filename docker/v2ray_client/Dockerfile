@@ -10,7 +10,7 @@ ENV VER=3.32
 RUN apk add --no-cache ca-certificates && update-ca-certificates
 RUN apk update
 RUN apk --no-cache upgrade
-RUN apk add --no-cache wget bash tzdata unzip vim sed
+RUN apk add -U --no-cache wget bash tzdata unzip vim sed privoxy supervisor
 
 RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
     && unzip v2ray.zip \
@@ -28,15 +28,26 @@ RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core
 RUN mkdir /var/log/v2ray \
     && echo ${Tim} > /etc/timezone \
     && mkdir /etc/v2ray \
+    && mkdir /etc/privoxy \
+    && mkdir /etc/supervisor \
+    && mkdir /etc/supervisor/conf.d \
     && chmod -R 777 /var/log/v2ray \
     && chmod -R 777 /etc/v2ray \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/cache/apk/*
 
+ADD privoxy_config /etc/privoxy/config
+
+RUN sed -i -e '/^listen-address/s/127.0.0.1/0.0.0.0/' \
+    -e '/^accept-intercepted-requests/s/0/1/' \
+    -e '/^enforce-blocks/s/0/1/' \
+    -e '/^#debug/s/#//' /etc/privoxy/config
+
 ADD config.json /etc/v2ray/
+ADD supervisord.conf /etc/supervisor/conf.d/
 ENV PATH /usr/local/bin:$PATH
 
 EXPOSE 1080
 EXPOSE 8118
 
-CMD ["v2ray", "-config=/etc/v2ray/config.json"]
+CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/conf.d/supervisord.conf"]
