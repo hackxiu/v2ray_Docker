@@ -8,7 +8,7 @@ ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
 ENV VER=3.32
 
 RUN apk add --no-cache ca-certificates && update-ca-certificates
-RUN apk --no-cache --update
+RUN apk --update
 RUN apk --no-cache --upgrade
 RUN apk --no-cache add wget && bash && tzdata && unzip && daemon && tzdata && vim && sed
 
