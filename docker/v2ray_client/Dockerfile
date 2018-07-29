@@ -28,9 +28,6 @@ RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core
 RUN mkdir /var/log/v2ray \
     && echo ${Tim} > /etc/timezone \
     && mkdir /etc/v2ray \
-    && mkdir /etc/privoxy \
-    && mkdir /etc/supervisor \
-    && mkdir /etc/supervisor/conf.d \
     && chmod -R 777 /var/log/v2ray \
     && chmod -R 777 /etc/v2ray \
     && rm -rf /var/lib/apt/lists/* \
