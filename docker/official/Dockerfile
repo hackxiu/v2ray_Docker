@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM alpine:latest
 LABEL maintainer="Hackxiu <hackxiu@gmail.com>"
 
 ENV Tim=Asia/Shanghai
@@ -7,8 +7,10 @@ ENV CLIENT_ALTERID 100
 ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
 ENV VER=3.32
 
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends wget sed net-tools unzip daemon tzdata vim
+RUN apk add --no-cache ca-certificates && update-ca-certificates
+RUN apk update
+RUN apk --no-cache upgrade
+RUN apk add -U --no-cache wget sed net-tools unzip daemon tzdata vim
 
 RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
 	&& unzip v2ray.zip \
