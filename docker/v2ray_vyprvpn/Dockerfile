@@ -12,10 +12,10 @@ RUN apt-get update \
 
 RUN wget --max-redirect=5 --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
 	&& unzip v2ray.zip \
-	&& mv ./v2ray/v2ray /usr/local/bin/ \
-	&& mv ./v2ray/v2ctl /usr/local/bin/ \
-    && mv ./v2ray/geosite.dat /usr/local/bin/ \
-    && mv ./v2ray/geoip.dat /usr/local/bin/ \
+    && mv ./v2ray/v2ray /usr/local/bin/v2ray \
+    && mv ./v2ray/v2ctl /usr/local/bin/v2ctl \
+    && mv ./v2ray/geosite.dat /usr/local/bin/geosite.dat \
+    && mv ./v2ray/geoip.dat /usr/local/bin/geoip.dat \
 	&& chmod 777 /usr/local/bin/v2ctl \
 	&& chmod 777 /usr/local/bin/v2ray \
     && chmod 777 /usr/local/bin/geosite.dat \
