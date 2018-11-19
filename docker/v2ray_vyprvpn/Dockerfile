@@ -11,6 +11,7 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends wget sed net-tools gdebi network-manager network-manager-pptp network-manager-openvpn network-manager-vpnc unzip daemon tzdata vim
 
 RUN wget --max-redirect=5 --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
+    && mkdir ./v2ray/v2ray \
 	&& unzip -o -d ./v2ray/v2ray v2ray.zip \
     && mv ./v2ray/v2ray /usr/local/bin/ \
     && mv ./v2ray/v2ctl /usr/local/bin/ \

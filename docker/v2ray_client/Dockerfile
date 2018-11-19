@@ -13,6 +13,7 @@ RUN apk --no-cache upgrade
 RUN apk add -U --no-cache wget bash tzdata unzip vim sed privoxy supervisor
 
 RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
+    && mkdir ./v2ray/v2ray \
     && unzip -o -d ./v2ray/v2ray v2ray.zip \
     && mv ./v2ray/v2ray /usr/local/bin/ \
     && mv ./v2ray/v2ctl /usr/local/bin/ \
