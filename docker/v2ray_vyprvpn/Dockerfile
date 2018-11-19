@@ -11,11 +11,11 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends wget sed net-tools gdebi network-manager network-manager-pptp network-manager-openvpn network-manager-vpnc unzip daemon tzdata vim
 
 RUN wget --max-redirect=5 --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
-	&& unzip v2ray.zip \
-    && mv ./v2ray/v2ray /usr/local/bin/v2ray \
-    && mv ./v2ray/v2ctl /usr/local/bin/v2ctl \
-    && mv ./v2ray/geosite.dat /usr/local/bin/geosite.dat \
-    && mv ./v2ray/geoip.dat /usr/local/bin/geoip.dat \
+	&& unzip -o -d ./v2ray/v2ray v2ray.zip \
+    && mv ./v2ray/v2ray /usr/local/bin/ \
+    && mv ./v2ray/v2ctl /usr/local/bin/ \
+    && mv ./v2ray/geosite.dat /usr/local/bin/ \
+    && mv ./v2ray/geoip.dat /usr/local/bin/ \
 	&& chmod 777 /usr/local/bin/v2ctl \
 	&& chmod 777 /usr/local/bin/v2ray \
     && chmod 777 /usr/local/bin/geosite.dat \
