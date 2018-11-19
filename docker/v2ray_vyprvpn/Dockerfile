@@ -8,7 +8,7 @@ ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
 ENV VER="4.5.0"
 
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends wget sed net-tools gdebi network-manager network-manager-pptp network-manager-openvpn network-manager-vpnc unzip daemon tzdata vim
+    && apt-get install -y --no-install-recommends wget sed net-tools gdebi network-manager network-manager-pptp network-manager-openvpn network-manager-vpnc unzip daemon tzdata vim
 
 RUN wget --max-redirect=5 --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
     && mkdir ./v2ray \
@@ -19,8 +19,8 @@ RUN wget --max-redirect=5 --no-check-certificate -O v2ray.zip https://github.com
     && mv ./v2ray/geoip.dat /usr/local/bin/ \
 	&& chmod 777 /usr/local/bin/v2ctl \
 	&& chmod 777 /usr/local/bin/v2ray \
-    && chmod 777 /usr/local/bin/geosite.dat \
-    && chmod 777 /usr/local/bin/geoip.dat \
+	&& chmod 777 /usr/local/bin/geosite.dat \
+	&& chmod 777 /usr/local/bin/geoip.dat \
 	&& rm -rf v2ray.zip \
 	&& rm -rf v2ray
 
