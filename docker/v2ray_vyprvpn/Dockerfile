@@ -13,10 +13,10 @@ RUN apt-get update \
 RUN wget --max-redirect=5 --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
     && mkdir ./v2ray \
 	&& unzip -o -d ./v2ray v2ray.zip \
-    && mv ./v2ray/v2ray /usr/local/bin/ \
-    && mv ./v2ray/v2ctl /usr/local/bin/ \
-    && mv ./v2ray/geosite.dat /usr/local/bin/ \
-    && mv ./v2ray/geoip.dat /usr/local/bin/ \
+	&& mv ./v2ray/v2ray /usr/local/bin/ \
+	&& mv ./v2ray/v2ctl /usr/local/bin/ \
+	&& mv ./v2ray/geosite.dat /usr/local/bin/ \
+	&& mv ./v2ray/geoip.dat /usr/local/bin/ \
 	&& chmod 777 /usr/local/bin/v2ctl \
 	&& chmod 777 /usr/local/bin/v2ray \
 	&& chmod 777 /usr/local/bin/geosite.dat \
@@ -37,7 +37,7 @@ ENV PATH /usr/local/bin:$PATH
 
 RUN sed -i "s/CLIENT_ID/$CLIENT_ID/g" /etc/v2ray/config.json \
     && sed -i "s/CLIENT_ALTERID/$CLIENT_ALTERID/g" /etc/v2ray/config.json \
-    && sed -i "s#CLIENT_WSPATH#$CLIENT_WSPATH#g" /etc/v2ray/config.json
+	&& sed -i "s#CLIENT_WSPATH#$CLIENT_WSPATH#g" /etc/v2ray/config.json
 
 EXPOSE 8080
 
