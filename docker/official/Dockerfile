@@ -1,28 +1,32 @@
 FROM alpine:latest
 LABEL maintainer="Hackxiu <hackxiu@gmail.com>"
 
-ENV Tim="Asia/Shanghai"
+ENV Tim=Asia/Shanghai
 ENV CLIENT_ID "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297"
 ENV CLIENT_ALTERID 100
 ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
-ENV VER="4.5.0"
+ENV VER=3.46
 
 RUN apk add --no-cache ca-certificates && update-ca-certificates
 RUN apk update
 RUN apk --no-cache upgrade
 RUN apk add -U --no-cache wget sed unzip tzdata vim
 
-RUN wget --max-redirect=5 --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
+RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
 	&& unzip v2ray.zip \
-	&& mv ./v2ray-v$VER-linux-64/v2ray /usr/local/bin/ \
-	&& mv ./v2ray-v$VER-linux-64/v2ctl /usr/local/bin/ \
+	&& mv ./v2ray/v2ray /usr/local/bin/ \
+	&& mv ./v2ray/v2ctl /usr/local/bin/ \
+    && mv ./v2ray/geosite.dat /usr/local/bin/ \
+    && mv ./v2ray/geoip.dat /usr/local/bin/ \
 	&& chmod 777 /usr/local/bin/v2ctl \
 	&& chmod 777 /usr/local/bin/v2ray \
+    && chmod 777 /usr/local/bin/geosite.dat \
+    && chmod 777 /usr/local/bin/geoip.dat \
 	&& rm -rf v2ray.zip \
-	&& rm -rf v2ray-v$VER-linux-64
+	&& rm -rf v2ray
 
 RUN mkdir /var/log/v2ray \
-        && echo ${Tim} > /etc/timezone \
+    && echo ${Tim} > /etc/timezone \
 	&& mkdir /etc/v2ray \
 	&& chmod -R 777 /var/log/v2ray \
 	&& chmod -R 777 /etc/v2ray \

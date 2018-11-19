@@ -12,18 +12,18 @@ RUN apk update
 RUN apk --no-cache upgrade
 RUN apk add -U --no-cache wget bash tzdata unzip vim sed privoxy supervisor
 
-RUN wget --max-redirect=5 --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
+RUN wget --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
     && unzip v2ray.zip \
-    && mv ./v2ray-v$VER-linux-64/v2ray /usr/local/bin/ \
-    && mv ./v2ray-v$VER-linux-64/v2ctl /usr/local/bin/ \
-    && mv ./v2ray-v$VER-linux-64/geosite.dat /usr/local/bin/ \
-    && mv ./v2ray-v$VER-linux-64/geoip.dat /usr/local/bin/ \
+    && mv ./v2ray/v2ray /usr/local/bin/ \
+    && mv ./v2ray/v2ctl /usr/local/bin/ \
+    && mv ./v2ray/geosite.dat /usr/local/bin/ \
+    && mv ./v2ray/geoip.dat /usr/local/bin/ \
     && chmod 777 /usr/local/bin/v2ctl \
     && chmod 777 /usr/local/bin/v2ray \
     && chmod 777 /usr/local/bin/geosite.dat \
     && chmod 777 /usr/local/bin/geoip.dat \
     && rm -rf v2ray.zip \
-    && rm -rf v2ray-v$VER-linux-64
+    && rm -rf v2ray
 
 RUN mkdir /var/log/v2ray \
     && echo ${Tim} > /etc/timezone \

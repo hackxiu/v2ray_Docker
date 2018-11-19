@@ -12,15 +12,19 @@ RUN apt-get update \
 
 RUN wget --max-redirect=5 --no-check-certificate -O v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
 	&& unzip v2ray.zip \
-	&& mv ./v2ray-v$VER-linux-64/v2ray /usr/local/bin/ \
-	&& mv ./v2ray-v$VER-linux-64/v2ctl /usr/local/bin/ \
+	&& mv ./v2ray/v2ray /usr/local/bin/ \
+	&& mv ./v2ray/v2ctl /usr/local/bin/ \
+    && mv ./v2ray/geosite.dat /usr/local/bin/ \
+    && mv ./v2ray/geoip.dat /usr/local/bin/ \
 	&& chmod 777 /usr/local/bin/v2ctl \
 	&& chmod 777 /usr/local/bin/v2ray \
+    && chmod 777 /usr/local/bin/geosite.dat \
+    && chmod 777 /usr/local/bin/geoip.dat \
 	&& rm -rf v2ray.zip \
-	&& rm -rf v2ray-v$VER-linux-64
+	&& rm -rf v2ray
 
 RUN mkdir /var/log/v2ray \
-        && echo ${Tim} > /etc/timezone \
+    && echo ${Tim} > /etc/timezone \
 	&& mkdir /etc/v2ray \
 	&& chmod -R 777 /var/log/v2ray \
 	&& chmod -R 777 /etc/v2ray \
