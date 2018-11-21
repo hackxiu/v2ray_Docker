@@ -9,7 +9,7 @@ ENV VER="4.5.0"
 
 RUN apk --no-cache -q -U update
 RUN apk --no-cache -q -U upgrade
-RUN apk --no-cache -q -U add ca-certificates && update-ca-certificates && wget && bash && tzdata && unzip && vim && sed && privoxy && supervisor \
+RUN apk --no-cache -q -U add ca-certificates && update-ca-certificates && wget bash tzdata unzip vim sed privoxy supervisor \
     && rm -rf /var/cache/apk/* \
     && rm -rf /var/lib/apt/lists/*
 #RUN apk add -U --no-cache wget sed unzip tzdata vim
