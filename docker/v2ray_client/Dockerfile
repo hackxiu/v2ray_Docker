@@ -5,7 +5,7 @@ ENV Tim="Asia/Shanghai"
 ENV CLIENT_ID "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297"
 ENV CLIENT_ALTERID 100
 ENV CLIENT_WSPATH "/fuckgfw_letscrossgfw"
-ENV VER="4.17.0"
+ENV VER="4.18.0"
 
 RUN apk --no-cache -q -U add ca-certificates && update-ca-certificates \
     && rm -rf /var/cache/apk/* \
